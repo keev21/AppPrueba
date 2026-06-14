@@ -1,0 +1,42 @@
+{% extends 'tickets/base.html' %}
+
+{% block title %}Lista de Técnicos{% endblock %}
+
+{% block content %}
+    <h1>Gestión de Técnicos</h1>
+    <p>Listado de personal registrado en el sistema</p>
+
+    <a href="{% url 'crear_tecnico' %}" class="btn-azul">
+        + Registrar Nuevo Técnico
+    </a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Especialidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tecnico in tecnicos %}
+            <tr>
+                <td>{{ tecnico.id }}</td>
+                <td>{{ tecnico.nombre }}</td>
+                <td>{{ tecnico.email }}</td>
+                <td>{{ tecnico.especialidad|default:"No especificada" }}</td>
+                <td>
+                    <a href="{% url 'editar_tecnico' tecnico.id %}" style="color: #007bff; text-decoration: none; margin-right: 10px;">Editar</a>
+                    <a href="{% url 'borrar_tecnico' tecnico.id %}" style="color: #dc3545; text-decoration: none;">Borrar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="text-align: center;">No hay técnicos registrados todavía.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

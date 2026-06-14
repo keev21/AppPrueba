@@ -1,0 +1,16 @@
+{% extends 'tickets/base.html' %}
+
+{% block title %}Eliminar Técnico{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 0 auto; text-align: center;">
+    <h1 style="color: #dc3545;">¿Eliminar Técnico?</h1>
+    <p>¿Estás seguro de que deseas eliminar a: <strong>"{{ object.nombre }}"</strong>?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" style="background-color: #dc3545; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Sí, Eliminar</button>
+        <a href="{% url 'lista_tecnicos' %}" style="display: inline-block; margin-left: 10px; color: #6c757d; text-decoration: none;">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,27 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Tickets</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background-color: #007bff; color: white; }
-        tr:hover { background-color: #f1f1f1; }
-        .badge { padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-        .abierto { background-color: #ffc107; color: #212529; }
-        .en_progreso { background-color: #17a2b8; color: white; }
-        .resuelto { background-color: #28a745; color: white; }
-    </style>
-</head>
-<body>
+{% extends 'tickets/base.html' %}
 
+{% block title %}Lista de Tickets{% endblock %}
+
+{% block content %}
     <h1>Gestión de Tickets</h1>
     <p>Practicando Django + PostgreSQL</p>
-    <a href="{% url 'crear_ticket' %}" style="display: inline-block; background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; margin-bottom: 20px;">
-    + Crear Nuevo Ticket
-</a>
+
+    <a href="{% url 'crear_ticket' %}" class="btn-azul">
+        + Crear Nuevo Ticket
+    </a>
 
     <table>
         <thead>
@@ -31,6 +18,7 @@
                 <th>Técnico Asignado</th>
                 <th>Estado</th>
                 <th>Fecha de Creación</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -45,14 +33,16 @@
                     </span>
                 </td>
                 <td>{{ ticket.fecha_creacion|date:"d/m/Y H:i" }}</td>
+                <td>
+                    <a href="{% url 'editar_ticket' ticket.id %}" style="color: #007bff; text-decoration: none; margin-right: 10px;">Editar</a>
+                    <a href="{% url 'borrar_ticket' ticket.id %}" style="color: #dc3545; text-decoration: none;">Borrar</a>
+                </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5" style="text-align: center;">No hay tickets registrados todavía.</td>
+                <td colspan="6" style="text-align: center;">No hay tickets registrados todavía.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Sistema de Tickets{% endblock %}</title>
+    <style>
+        /* Estilos del Menú de Navegación */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; }
+        .navbar { background-color: #343a40; padding: 15px 30px; display: flex; align-items: center; }
+        .navbar-brand { color: white; font-size: 20px; font-weight: bold; text-decoration: none; margin-right: 30px; }
+        .navbar-nav { list-style: none; display: flex; margin: 0; padding: 0; }
+        .nav-item { margin-right: 20px; }
+        .nav-link { color: #adb5bd; text-decoration: none; font-size: 16px; transition: color 0.2s; }
+        .nav-link:hover { color: white; }
+        .active { color: white; font-weight: bold; }
+        
+        /* Contenedor del contenido dinámico */
+        .contenido-principal { padding: 40px; }
+        
+        /* Reutilizamos estilos globales para tablas y botones aquí para no repetirlos */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #007bff; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        .badge { padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .abierto { background-color: #ffc107; color: #212529; }
+        .en_progreso { background-color: #17a2b8; color: white; }
+        .resuelto { background-color: #28a745; color: white; }
+        .btn-azul { display: inline-block; background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a class="navbar-brand" href="{% url 'lista_tickets' %}">🎟️ TicketApp</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'lista_tickets' %}">Tickets</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'lista_tecnicos' %}">Técnicos</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="contenido-principal">
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div style="padding: 15px; margin-bottom: 20px; border-radius: 4px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; font-weight: bold;">
+                    ⚠️ {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
